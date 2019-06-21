@@ -1,14 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	<!-- Common oldskool META tags -->
 	<meta charset="utf-8">
-	<title>RotoSkale</title>
-	<meta name="description" content="A game of scaling and rotation.">
+	<title>RotoSkale - a rotation and scaling game</title>
+	<meta name="description" content="A challenging game about scaling and rotating stuff.">
+	
+	<!--
+	<meta name="author" content="Julien Couchon" />
+	<meta name="copyright" content="No Copyright at all" />
+		
+	<meta name=”viewport” content=”width=device-width,initial-scale=1″>
+	
+	<meta property=”og:type” content=”article” />
+	<meta property=”og:title” content=”TITLE OF YOUR POST OR PAGE” />
+	<meta property=”og:description” content=”DESCRIPTION OF PAGE CONTENT” />
+	<meta property=”og:image” content=”LINK TO THE IMAGE FILE” />
+	<meta property=”og:url” content=”PERMALINK” />
+	<meta property=”og:site_name” content=”SITE NAME” />	
+	
+	<meta name=”twitter:title” content=”TITLE OF POST OR PAGE”>
+	<meta name=”twitter:description” content=”DESCRIPTION OF PAGE CONTENT”>
+	<meta name=”twitter:image” content=”LINK TO IMAGE”>
+	<meta name=”twitter:site” content=”@USERNAME”>
+	<meta name=”twitter:creator” content=”@USERNAME”>
+	-->
+	
+	<!--For our robots friends -->
 	<meta name="robots" content="noindex, nofollow">
+	
 	<link rel="stylesheet" href="css/rotoskale.css">	
 </head>
 <body onload="startGame()">
 	<div id="header"   class="rts"><img src="assets/logo.png" alt="RotoSkale"></div>
-	<div id="gameview" class="rts">COMING SOON. Vient bientôt. Komme zurcheinlich dafür. Como sooniera.</div>
+	<div id="buttonsrow" class="rts">
+		<button id="letsgo">START</button>
+	</div>
+	<div id="gamearea" class="rts">
+		<div id="gamescrore"></div>
+		<div id="gameview"></div>
+		<div id="gametimer"></div>
+	</div>
+	<div id="inputs"   class="rts">
+		<input type="range" min="0.1" max="10" value="0.1" class="slider" id="scaleRange">
+		<input type="range" min="0.1" max="10" value="0.1" class="slider" id="rotateRange">
+	</div>
+	<script src="js/rotoskale.js"></script>
 </body>
 </html>

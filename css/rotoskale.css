@@ -13,10 +13,13 @@
   overflow: auto;
   border-radius: 25px;
   background-color: #FFFFFF;
+  margin-bottom: 10px;
 }
 
-#header {
-  margin-bottom: 10px;
+#buttonsrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #gameview {

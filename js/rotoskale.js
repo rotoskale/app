@@ -3,12 +3,6 @@ function startGame() {
 	gameHeight = 200;
 	gameMargin = 20; //marge pour al generation des points. ie. les points ne peuvent pas etre à moins de 20px d'un bord.
 	
-	var debugTB1 = document.getElementById('debug1');
-	var debugTB2 = document.getElementById('debug2');
-	var debugTB3 = document.getElementById('debug3');
-	var debugTB4 = document.getElementById('debug4');
-	var debugTB5 = document.getElementById('debug5');
-	
 	var canvasDiv = document.getElementById("gameview");
 	var inputsDiv = document.getElementById("inputs");
 	
@@ -19,25 +13,7 @@ function startGame() {
 	canvas.height = gameHeight;
 	canvas.className = "game";
 	ctx = canvas.getContext("2d");
-	//document.body.insertBefore(canvas, document.body.childNodes[0]);
 	canvasDiv.appendChild(canvas);
-	
-	pointStart = new Point(Math.floor(gameMargin + (Math.random() * (gameWidth-(2*gameMargin))) + 1),gameMargin + Math.floor((Math.random() * (gameHeight - (2*gameMargin))) + 1), "#F17F42");
-	pointEnd = new Point(Math.floor(gameMargin + (Math.random() * (gameWidth-(2*gameMargin))) + 1),gameMargin + Math.floor((Math.random() * (gameHeight - (2*gameMargin))) + 1), "#ce6d39");
-	pointGoal = new Point(Math.floor(gameMargin + (Math.random() * (gameWidth-(2*gameMargin))) + 1),gameMargin + Math.floor((Math.random() * (gameHeight - (2*gameMargin))) + 1), "black");
-	
-	drawPoint(ctx, pointStart);
-	drawPoint(ctx, pointEnd);
-	drawPoint(ctx, pointGoal);
-	
-	drawArrow(ctx, pointStart, pointEnd, "red", 2);
-	drawArrow(ctx, pointStart, pointGoal, "green", 2);
-	
-	var d1 = getDistance(pointStart, pointEnd);
-	writeDebug(debugTB1, "Distance initiale:"+d1);
-	
-	var d2 = getDistance(pointStart, pointGoal);
-	writeDebug(debugTB2, "Distance finale:"+d2+" ratio:"+(d2/d1));	
 }
 
 function bclick() {
@@ -54,6 +30,24 @@ function bclick() {
 	drawPoint(ctx, finalPoint);
 }
 
+/** MAIN GAME CLASSES ========================================= **/
+class cGame {
+    constructor(timer, canvas) {
+        this.timer = timer;
+		this.canvas = canvas;
+        this.round = 0;
+        this.score = 0;
+    }
+
+    start() {
+        return this.make + " " + this.model;
+    }	
+}
+
+/** MAIN GAME CLASSES (end) ==================================== **/
+
+
+/** HELPER FUNCTIONS **/
 function getRotatedPoint(pRotation) {
 	
     var radians = (Math.PI / 180) * pRotation;
@@ -86,6 +80,7 @@ function drawPoint(ctx, point) {
 	ctx.fill();
 }
 
+/* OK */
 function drawArrow(ctx, point1, point2, color, width) {
 	ctx.beginPath();
 	var gradient=ctx.createLinearGradient(point1.x, point1.y, point2.x, point2.y);
@@ -105,12 +100,9 @@ function drawArrow(ctx, point1, point2, color, width) {
 	ctx.stroke();	
 }
 
+/* OK */
 function getDistance(pointA, pointB) {
 	return Math.sqrt( (pointA.x-pointB.x)*(pointA.x-pointB.x) + (pointA.y-pointB.y)*(pointA.y-pointB.y) );
 }
 
-function writeDebug(pTextbox, pMessage) {
-	pTextbox.value = pMessage;
-}
 
-//Math.floor((Math.random() * 10) + 1);
