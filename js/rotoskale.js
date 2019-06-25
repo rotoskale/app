@@ -1,22 +1,37 @@
+var gGmame;
+var gTimerDIV;
+var gCanvas;
+var gCanvasDiv;
+var gInputsDiv;
+var gScale    = document.getElementById('scale');
+var gRotation = document.getElementById('rotation');
+/* A deplacer dans l'init., basé sur la largeur de l'écran. Responsive stylee BB */
+var gameWidth = 200;
+var gameHeight = 200;
+var gameMargin = 20; //marge pour al generation des points. ie. les points ne peuvent pas etre à moins de 20px d'un bord.	
+
 function startGame() {
-	gameWidth = 200;
-	gameHeight = 200;
-	gameMargin = 20; //marge pour al generation des points. ie. les points ne peuvent pas etre à moins de 20px d'un bord.
 	
-	var canvasDiv = document.getElementById("gameview");
-	var inputsDiv = document.getElementById("inputs");
+	gCanvasDiv = document.getElementById("gameview");
+	var gInputsDiv = document.getElementById("inputs");
 	
 	document.getElementById('letsgo').addEventListener("click", bclick);
 	
-    var canvas = document.createElement("canvas");
-	canvas.width = gameWidth;
-	canvas.height = gameHeight;
-	canvas.className = "game";
-	ctx = canvas.getContext("2d");
-	canvasDiv.appendChild(canvas);
+    gCanvas = document.createElement("canvas");
+	gCanvas.width = gameWidth;
+	gCanvas.height = gameHeight;
+	gCanvas.className = "game";
+	ctx = gCanvas.getContext("2d");
+	gCanvasDiv.appendChild(gCanvas);
+	
+	gGame = new Game();
+	gTimerDIV = document.getElementById('gametimer')
 }
 
 function bclick() {
+	
+	gGame.start();
+	/*
 	//alert(pointStart.x);
 	var tScale    = document.getElementById('scale').value;
 	var tRotation = document.getElementById('rotation').value;
@@ -28,22 +43,56 @@ function bclick() {
 
 	var finalPoint = getScaledPoint(tmp_rot_point, tScale);
 	drawPoint(ctx, finalPoint);
+	*/
 }
 
 /** MAIN GAME CLASSES ========================================= **/
-class cGame {
-    constructor(timer, canvas) {
-        this.timer = timer;
-		this.canvas = canvas;
-        this.round = 0;
-        this.score = 0;
-    }
-
-    start() {
-        return this.make + " " + this.model;
-    }	
+function Game() {
+    this.score = 0;		//on commence avec un score à zéro
+    this.level = 1;		//on commence au niveau 1
+	this.running = 0; 	//par defaut il n'est pas lancé
+	
+    this.start = function() {
+		gTimerDIV.innerText = "pause";
+		
+		timeLeft = 10;
+		//gCanvas.background-color = rgb(255,0,0);
+		//gCanvas.setAttribute('background-color', "#FF0000");
+		
+		this.generateRound();
+		var timerId = setInterval(countdown, 1000);
+		
+		function countdown() {
+			gCanvas.style.background = 'rgb('+(255/10)*timeLeft+','+ (255/10)*timeLeft + ',' + (255/10)*timeLeft + ')'; 
+			if (timeLeft == 0) {
+				gTimerDIV.innerText = "DONE!";
+				clearTimeout(timerId);
+				//doSomething();
+			} 
+			else {
+				gTimerDIV.innerText = timeLeft;
+				timeLeft--;
+			}	
+		};
+    };	
+};
+Game.prototype.generateRound = function() {
+    pointOrigin = new Point(gameWidth/2, gameHeight/2, "#F17F42");
+	pointStart = new Point(Math.floor(gameMargin + (Math.random() * (gameWidth-(2*gameMargin))) + 1),gameMargin + Math.floor((Math.random() * (gameHeight - (2*gameMargin))) + 1), "red");
+	pointGoal = new Point(Math.floor(gameMargin + (Math.random() * (gameWidth-(2*gameMargin))) + 1),gameMargin + Math.floor((Math.random() * (gameHeight - (2*gameMargin))) + 1), "green");
+	drawPoint(ctx, pointOrigin);	
+	drawPoint(ctx, pointStart);	
+	drawPoint(ctx, pointGoal);	
+	
+	drawArrow(ctx, pointOrigin, pointStart, "red", 2);
+	drawArrow(ctx, pointOrigin, pointGoal, "green", 2);
 }
-
+/** Exemple pour ajouter une fonction après coup */
+/*
+Hero.prototype.greet = function() {
+    return `${this.score} says hello.`;
+}
+*/
 /** MAIN GAME CLASSES (end) ==================================== **/
 
 
@@ -53,8 +102,8 @@ function getRotatedPoint(pRotation) {
     var radians = (Math.PI / 180) * pRotation;
 	cos = Math.cos(radians);
 	sin = Math.sin(radians);
-	var nx = (cos * (pointEnd.x - pointStart.x)) + (sin * (pointEnd.y -  pointStart.y)) + pointStart.x;
-	var ny = (cos * (pointEnd.y -  pointStart.y)) - (sin * (pointEnd.x - pointStart.x)) +  pointStart.y;
+	var nx = (cos * (pointStart.x - pointStart.x)) + (sin * (pointStart.y -  pointStart.y)) + pointStart.x;
+	var ny = (cos * (pointStart.y -  pointStart.y)) - (sin * (pointStart.x - pointStart.x)) +  pointStart.y;
 	
     return new Point(nx,ny,"#FFFF00");
 }

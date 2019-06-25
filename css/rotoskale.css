@@ -1,6 +1,6 @@
 .game {
 	border: 1px solid #333;
-	background-color: #EEEEEE;
+	/*background-color: #EEEEEE;*/
 }
 
 /* Global Common DIV values */
@@ -14,6 +14,26 @@
   border-radius: 25px;
   background-color: #FFFFFF;
   margin-bottom: 10px;
+  font-family: Verdana,Geneva,sans-serif; 
+}
+
+/* Main ROW */
+.box {
+	display: flex;
+	justify-content: space-between;
+}
+
+#gamescore {
+	width: 30%;
+}
+#gameview {
+	width: 30%;
+}
+#gametimer {
+	width: 30%;
+	font-size: xx-large;
+	vertical-align: middle;
+	text-align: center;
 }
 
 #buttonsrow {
