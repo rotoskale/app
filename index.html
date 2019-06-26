@@ -1,30 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	<link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+	<link rel="manifest" href="./site.webmanifest">
+	<link rel="mask-icon" href="./safari-pinned-tab.svg" color="#5bbad5">
+	<meta name="msapplication-TileColor" content="#da532c">
+	<meta name="theme-color" content="#ffffff">
+
 	<!-- Common oldskool META tags -->
 	<meta charset="utf-8">
-	<title>RotoSkale - a rotation and scaling game</title>
+	<title>RotoSkale | Rotate, scale, win.</title>
 	<meta name="description" content="A challenging game about scaling and rotating stuff.">
-	
-	<!--
 	<meta name="author" content="Julien Couchon" />
 	<meta name="copyright" content="No Copyright at all" />
 		
 	<meta name=”viewport” content=”width=device-width,initial-scale=1″>
 	
-	<meta property=”og:type” content=”article” />
-	<meta property=”og:title” content=”TITLE OF YOUR POST OR PAGE” />
-	<meta property=”og:description” content=”DESCRIPTION OF PAGE CONTENT” />
-	<meta property=”og:image” content=”LINK TO THE IMAGE FILE” />
-	<meta property=”og:url” content=”PERMALINK” />
-	<meta property=”og:site_name” content=”SITE NAME” />	
+	<link rel="icon" type="image/png" href="./image.png" />
 	
-	<meta name=”twitter:title” content=”TITLE OF POST OR PAGE”>
-	<meta name=”twitter:description” content=”DESCRIPTION OF PAGE CONTENT”>
+	<meta property=”og:type” content=”website” />
+	<meta property=”og:title” content=”ROTOSKALE” />
+	<meta property=”og:description” content=”A game about rotation and scaling” />
+	<meta property=”og:image” content=”LINK TO THE IMAGE FILE” />
+	<meta property=”og:url” content=”https://rotoskale.io” />
+	<meta property=”og:site_name” content=”Rotoskale” />	
+	
+	<meta name=”twitter:title” content=”Rotoskale”>
+	<meta name=”twitter:description” content=”A game about rotation and scaling”>
 	<meta name=”twitter:image” content=”LINK TO IMAGE”>
-	<meta name=”twitter:site” content=”@USERNAME”>
-	<meta name=”twitter:creator” content=”@USERNAME”>
-	-->
+	<meta name=”twitter:site” content=”@Rotoskale”>
+	<meta name=”twitter:creator” content=”@Rotoskale”>
 	
 	<!--For our robots friends -->
 	<meta name="robots" content="noindex, nofollow">
@@ -37,14 +44,19 @@
 		<button id="letsgo">START</button>
 	</div>
 	<div id="gamearea" class="rts box">
-		<div id="gamescore"></div>
+		<div id="gamescore">
+			<div id="infoScore">Score:</div>
+			<div id="infoRotate">Rotate:</div>
+			<div id="infoScale">Scale:</div>
+		</div>
 		<div id="gameview"></div>
 		<div id="gametimer"></div>
 	</div>
 	<div id="inputs"   class="rts">
 		<input type="range" min="0" max="100" value="50" class="slider" id="scaleRange">
-		<input type="range" min="0" max="100" value="50" class="slider" id="rotateRange">
+		<input type="range" min="-180" max="180" value="0" class="slider" id="rotateRange">
 	</div>
+	<div id="footer"></div>
 	<script src="js/rotoskale.js"></script>
 </body>
 </html>

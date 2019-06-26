@@ -17,6 +17,15 @@
   font-family: Verdana,Geneva,sans-serif; 
 }
 
+#footer {
+	color: white;
+	margin: auto;
+	width: 100%;
+	text-align: center;
+	font-family: Verdana,Geneva,sans-serif; 
+	font-size: small;
+}
+
 /* Main ROW */
 .box {
 	display: flex;
@@ -40,6 +49,20 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+#letsgo:enabled {
+  background-color: #4CAF50; /* Green */
+  border: solid 1px;
+  border-color: #00FF00;
+  color: red;	
+}
+
+#letsgo:disabled {
+  background-color: #999999; /* Gray */
+  border: solid 1px;
+  border-color: #000000;
+  color: black;	
 }
 
 #gameview {

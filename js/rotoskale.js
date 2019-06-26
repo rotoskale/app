@@ -3,19 +3,32 @@ var gTimerDIV;
 var gCanvas;
 var gCanvasDiv;
 var gInputsDiv;
-var gScale    = document.getElementById('scale');
-var gRotation = document.getElementById('rotation');
+var gScale;   
+var gRotation;
+
+var ginfoScore;
+var ginfoRotate;
+var ginfoScale;
+
 /* A deplacer dans l'init., basé sur la largeur de l'écran. Responsive stylee BB */
 var gameWidth = 200;
 var gameHeight = 200;
 var gameMargin = 20; //marge pour al generation des points. ie. les points ne peuvent pas etre à moins de 20px d'un bord.	
+var gRoundTime = 5;
 
 function startGame() {
+	
+	gScale    = document.getElementById('scaleRange');
+	gRotation = document.getElementById('rotateRange');
 	
 	gCanvasDiv = document.getElementById("gameview");
 	var gInputsDiv = document.getElementById("inputs");
 	
 	document.getElementById('letsgo').addEventListener("click", bclick);
+	
+	/* footer bébé ! */
+	document.getElementById('footer').innerHTML = "[v 0.1 pre-alpha - 1978 - 2039 &copy;Nobody  since it\'s <a href='https://unlicense.org/'>Unlicensed</a>]";
+	
 	
     gCanvas = document.createElement("canvas");
 	gCanvas.width = gameWidth;
@@ -25,26 +38,32 @@ function startGame() {
 	gCanvasDiv.appendChild(gCanvas);
 	
 	gGame = new Game();
-	gTimerDIV = document.getElementById('gametimer')
+	gTimerDIV = document.getElementById('gametimer');
+	
+	document.getElementById("scaleRange").addEventListener("input", function(e) {
+		e.preventDefault();
+		var msg = document.getElementById("scaleRange").value.trim();
+		if (msg) {
+			document.getElementById("infoScale").innerText = "Scale: "+ parseInt(msg)/10;
+		}
+	}, false);
+	
+	document.getElementById("rotateRange").addEventListener("input", function(e) {
+		e.preventDefault();
+		var msg = document.getElementById("rotateRange").value.trim();
+		if (msg) {
+			document.getElementById("infoRotate").innerText = "Rotate: " + msg;
+		}
+	}, false);
+	
 }
 
 function bclick() {
-	
 	gGame.start();
-	/*
-	//alert(pointStart.x);
-	var tScale    = document.getElementById('scale').value;
-	var tRotation = document.getElementById('rotation').value;
-	
-	//alert(tRotation);
-	
-	var tmp_rot_point = getRotatedPoint(tRotation);
-	drawPoint(ctx, tmp_rot_point);
-
-	var finalPoint = getScaledPoint(tmp_rot_point, tScale);
-	drawPoint(ctx, finalPoint);
-	*/
 }
+
+
+
 
 /** MAIN GAME CLASSES ========================================= **/
 function Game() {
@@ -53,13 +72,13 @@ function Game() {
 	this.running = 0; 	//par defaut il n'est pas lancé
 	
     this.start = function() {
-		gTimerDIV.innerText = "pause";
-		
+		gTimerDIV.innerText = "get ready";
 		timeLeft = 10;
-		//gCanvas.background-color = rgb(255,0,0);
-		//gCanvas.setAttribute('background-color', "#FF0000");
-		
 		this.generateRound();
+		document.getElementById('letsgo').disabled = true;
+		gScale.disabled = false;
+		gScale.disabled = false;
+		
 		var timerId = setInterval(countdown, 1000);
 		
 		function countdown() {
@@ -68,6 +87,9 @@ function Game() {
 				gTimerDIV.innerText = "DONE!";
 				clearTimeout(timerId);
 				//doSomething();
+				document.getElementById('letsgo').disabled = false;
+				gScale.disabled = true;
+				gScale.disabled = true;				
 			} 
 			else {
 				gTimerDIV.innerText = timeLeft;
