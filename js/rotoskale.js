@@ -91,7 +91,7 @@ function Game() {
 				gScale.disabled = true;
 				gScale.disabled = true;	
 
-				this.getScore();
+				getScore();
 			} 
 			else {
 				gTimerDIV.innerText = timeLeft;
@@ -116,11 +116,13 @@ Game.prototype.generateRound = function() {
 	drawArrow(ctx, pointOrigin, pointGoal, "green", 2);
 }
 
-Game.prototype.getScore = function() {
+//TODO: ressortir les points en global sinon on perd l'info pour calculer la distance.
+function getScore() {
 	var tmp_rot_point = getRotatedPoint(gRotation.value);
 	drawPoint(ctx, tmp_rot_point);
-	var finalPoint = getScaledPoint(tmp_rot_point, gScales.value);
+	var finalPoint = getScaledPoint(tmp_rot_point, gScale.value);
 	drawPoint(ctx, finalPoint);
+	return getDistance(
 }
 
 
@@ -155,28 +157,19 @@ function Point(x, y, color) {
 
 function drawPoint(ctx, point) {
 	ctx.beginPath();
-	ctx.arc(point.x, point.y, 5, 0, 2 * Math.PI, true);
+	ctx.arc(point.x, point.y, 2, 0, 2 * Math.PI, true);
 	ctx.fillStyle = point.color;
 	ctx.fill();
 }
 
-/* OK */
 function drawArrow(ctx, point1, point2, color, width) {
 	ctx.beginPath();
-	var gradient=ctx.createLinearGradient(point1.x, point1.y, point2.x, point2.y);
-	gradient.addColorStop("0","black");
-
-	gradient.addColorStop("1.0",color);
-	ctx.strokeStyle=gradient;
+	ctx.strokeStyle=color;
 	ctx.lineWidth = width;
-
 	var headlen = 6;   // length of head in pixels
     var angle = Math.atan2(point2.y-point1.y, point2.x-point1.x);
     ctx.moveTo(point1.x, point1.y);
     ctx.lineTo(point2.x, point2.y);
-    ctx.lineTo(point2.x-headlen*Math.cos(angle-Math.PI/6),point2.y-headlen*Math.sin(angle-Math.PI/6));
-    ctx.moveTo(point2.x, point2.y);
-    ctx.lineTo(point2.x-headlen*Math.cos(angle+Math.PI/6),point2.y-headlen*Math.sin(angle+Math.PI/6));	
 	ctx.stroke();	
 }
 

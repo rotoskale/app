@@ -1,3 +1,5 @@
+/* https://paletton.com/#uid=73v0u0kpWOueWUFkPRqvAL1GSvT */
+
 .game {
 	border: 1px solid #333;
 	/*background-color: #EEEEEE;*/
@@ -51,20 +53,37 @@
   justify-content: center;
 }
 
+#letsgo {
+  -webkit-border-radius: 14;
+  -moz-border-radius: 14;
+  border-radius: 14px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 20px;
+  background: #3498db;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+}
+
+#letsgo:hover {
+  background: #3cb0fd;
+  text-decoration: none;
+}
+/*
 #letsgo:enabled {
-  background-color: #4CAF50; /* Green */
+  background-color: #4CAF50; 
   border: solid 1px;
   border-color: #00FF00;
   color: red;	
 }
 
 #letsgo:disabled {
-  background-color: #999999; /* Gray */
+  background-color: #999999; 
   border: solid 1px;
   border-color: #000000;
   color: black;	
 }
-
+*/
 #gameview {
   background-color: #FFFFFF;
 }
