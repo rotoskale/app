@@ -86,10 +86,12 @@ function Game() {
 			if (timeLeft == 0) {
 				gTimerDIV.innerText = "DONE!";
 				clearTimeout(timerId);
-				//doSomething();
+				
 				document.getElementById('letsgo').disabled = false;
 				gScale.disabled = true;
-				gScale.disabled = true;				
+				gScale.disabled = true;	
+
+				this.getScore();
 			} 
 			else {
 				gTimerDIV.innerText = timeLeft;
@@ -99,6 +101,10 @@ function Game() {
     };	
 };
 Game.prototype.generateRound = function() {
+	
+	//Lavement!
+	ctx.clearRect(0, 0, gCanvas.width, gCanvas.height);
+	
     pointOrigin = new Point(gameWidth/2, gameHeight/2, "#F17F42");
 	pointStart = new Point(Math.floor(gameMargin + (Math.random() * (gameWidth-(2*gameMargin))) + 1),gameMargin + Math.floor((Math.random() * (gameHeight - (2*gameMargin))) + 1), "red");
 	pointGoal = new Point(Math.floor(gameMargin + (Math.random() * (gameWidth-(2*gameMargin))) + 1),gameMargin + Math.floor((Math.random() * (gameHeight - (2*gameMargin))) + 1), "green");
@@ -109,12 +115,15 @@ Game.prototype.generateRound = function() {
 	drawArrow(ctx, pointOrigin, pointStart, "red", 2);
 	drawArrow(ctx, pointOrigin, pointGoal, "green", 2);
 }
-/** Exemple pour ajouter une fonction après coup */
-/*
-Hero.prototype.greet = function() {
-    return `${this.score} says hello.`;
+
+Game.prototype.getScore = function() {
+	var tmp_rot_point = getRotatedPoint(gRotation.value);
+	drawPoint(ctx, tmp_rot_point);
+	var finalPoint = getScaledPoint(tmp_rot_point, gScales.value);
+	drawPoint(ctx, finalPoint);
 }
-*/
+
+
 /** MAIN GAME CLASSES (end) ==================================== **/
 
 

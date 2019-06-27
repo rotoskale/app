@@ -1,0 +1,14 @@
+/* TEAM */
+Your title: Julien COUCHON.
+Site: rotoskale.io
+Twitter: Rotoskale
+Location: Montpellier, FRANCE
+
+/* THANKS */
+Name: Obama
+
+/* SITE */
+Last update: 2019/06/27 
+Standards: HTML5, CSS3, javascript
+Components: None
+Software: nano
